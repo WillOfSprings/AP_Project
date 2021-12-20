@@ -145,6 +145,7 @@ public class HelloController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+
     }
 
 
@@ -156,6 +157,7 @@ public class HelloController implements Initializable {
             public void run(){
                 System.out.println("aaa");
                 try{
+                    arrow.setVisible(false);
                     dc = (random.nextInt(6)+1);
                     for (int i = 0; i < 15; i++) {
                         File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + (random.nextInt(6)+1) + ".png");
@@ -167,6 +169,8 @@ public class HelloController implements Initializable {
                     File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + dc + ".png");
                     System.out.println(diceFile.getAbsolutePath());
                     diceView.setImage(new Image(diceFile.toURI().toString()));
+                    arrow.setVisible(true);
+
                     Thread.sleep(100);
 
                     diceView.setDisable(false);
@@ -182,5 +186,4 @@ public class HelloController implements Initializable {
     }
 
 }
-
 
