@@ -1,18 +1,30 @@
 package ap.ap_project;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
 public class HelloController {
 
     public int a = 1;
+    public ImageView gameBoard;
+    public ImageView piece1;
+    public ImageView piece2;
 
+    @FXML
+    private Pane gamePane;
+    @FXML
+    private Button tempB;
 
     @FXML
     private ImageView imageview;
@@ -30,6 +42,10 @@ public class HelloController {
     @FXML
     private Cylinder abc;
 
+    @FXML
+    protected void handleButtonAction() {
+        gamePane.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
     @FXML
     protected void onHelloButtonClick(){
 
