@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ap.ap_project.DiceTest">
+    <children>
+        <Label fx:id="welcomeText" layoutX="178.0" layoutY="408.0" prefHeight="17.0" prefWidth="8.0" />
+      <ImageView fitHeight="42.0" fitWidth="111.0" layoutX="69.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@player1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="42.0" fitWidth="111.0" layoutX="213.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@player2.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="diceButton" layoutX="151.0" layoutY="517.0" mnemonicParsing="false" onMouseClicked="#roll" opacity="0.0" prefHeight="63.0" prefWidth="62.0" />
+      <ImageView fx:id="dice" fitHeight="63.0" fitWidth="82.0" layoutX="151.0" layoutY="517.0" preserveRatio="true">
+         <image>
+            <Image url="@dice1.png" />
+         </image>
+      </ImageView>
+      <CheckBox layoutX="132.0" layoutY="165.0" mnemonicParsing="false" text="CheckBox" />
+      <Button layoutX="152.0" layoutY="237.0" mnemonicParsing="false" text="Button" />
+    </children>
+</AnchorPane>
