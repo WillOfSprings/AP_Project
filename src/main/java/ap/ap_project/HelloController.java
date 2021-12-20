@@ -120,8 +120,8 @@ public class HelloController implements Initializable {
             arrow.setLayoutY(arrow.getLayoutY() + deltaY);
 
             //Bounds bounds = scene.getBoundsInLocal();
-            boolean bottomBorder = arrow.getLayoutY() >= (490);
-            boolean topBorder = arrow.getLayoutY() <= ( 470);
+            boolean bottomBorder = arrow.getLayoutY() >= (510);
+            boolean topBorder = arrow.getLayoutY() <= ( 490);
 
 
             if (bottomBorder || topBorder) {
