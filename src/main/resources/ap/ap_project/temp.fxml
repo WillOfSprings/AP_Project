@@ -25,12 +25,12 @@
                 <Image url="@piece1.png" />
             </image>
         </ImageView>
-      <ImageView fitHeight="42.0" fitWidth="111.0" layoutX="69.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="p1" fitHeight="42.0" fitWidth="82.0" layoutX="69.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@player1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="42.0" fitWidth="111.0" layoutX="213.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="p2" fitHeight="42.0" fitWidth="82.0" layoutX="213.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@player2.png" />
          </image>
@@ -43,6 +43,16 @@
       <ImageView fx:id="arrow" fitHeight="25.0" fitWidth="39.0" layoutX="168.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@arrow2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="p1Inactive" fitHeight="42.0" fitWidth="82.0" layoutX="68.0" layoutY="530.0" opacity="0.0" pickOnBounds="true">
+        <image>
+            <Image url="@black.png" />
+        </image>
+      </ImageView>
+      <ImageView fx:id="p2Inactive" fitHeight="42.0" fitWidth="82.0" layoutX="213.0" layoutY="530.0" opacity="0.0" pickOnBounds="true">
+         <image>
+            <Image url="@black.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="17.0" fitWidth="20.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

@@ -37,6 +37,15 @@ public class HelloController implements Initializable {
     public ImageView piece2;
 
     @FXML
+    private ImageView p1Inactive;
+    @FXML
+    private ImageView p2Inactive;
+    @FXML
+    private ImageView p1;
+    @FXML
+    private ImageView p2;
+
+    @FXML
     private ImageView diceView;
     @FXML
     private Pane gamePane;
@@ -152,6 +161,8 @@ public class HelloController implements Initializable {
 
     public void roll(MouseEvent mouseEvent) {
         diceView.setDisable(true);
+        p1Inactive.setOpacity(0.5);
+        p2Inactive.setOpacity(0.5);
 
         Thread thread = new Thread() {
             public void run(){
@@ -183,6 +194,9 @@ public class HelloController implements Initializable {
         };
 
         thread.start();
+        // To reset, dk where to place
+//        p1Inactive.setOpacity(0.0);
+//        p2Inactive.setOpacity(0.0);
     }
 
 }
