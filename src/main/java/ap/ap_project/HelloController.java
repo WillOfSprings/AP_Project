@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -27,6 +28,8 @@ import java.util.ResourceBundle;
 public class HelloController implements Initializable {
 
     public int a = 1;
+
+    // For roll()
     int dc = 0;
     Random random = new Random();
     public ImageView gameBoard;
@@ -155,10 +158,16 @@ public class HelloController implements Initializable {
                 try{
                     dc = (random.nextInt(6)+1);
                     for (int i = 0; i < 15; i++) {
-                        File diceFile = new File("dice" + dc + ".png");
-                        diceView.setImage(new javafx.scene.image.Image(diceFile.toURI().toString()));
+                        File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + (random.nextInt(6)+1) + ".png");
+                        System.out.println(diceFile.getAbsolutePath());
+                        diceView.setImage(new Image(diceFile.toURI().toString()));
                         Thread.sleep(100);
                     }
+
+                    File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + dc + ".png");
+                    System.out.println(diceFile.getAbsolutePath());
+                    diceView.setImage(new Image(diceFile.toURI().toString()));
+                    Thread.sleep(100);
 
                     diceView.setDisable(false);
 //                    welcomeText.setText("" + a);

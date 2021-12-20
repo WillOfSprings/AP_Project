@@ -45,26 +45,28 @@ public class DiceTest implements Initializable {
     }
 
 
-//    public void roll(MouseEvent mouseEvent) {
-//        dice.setDisable(true);
-//
-//        Thread thread = new Thread() {
-//            public void run(){
-//                System.out.println("aaa");
-//                try{
-//                    a = (random.nextInt(6)+1);
-//                    for (int i = 0; i < 15; i++) {
-//                        File diceFile = new File("dice" + a + ".png");
-//                        dice.setImage(new javafx.scene.image.Image(diceFile.toURI().toString()));
-//                        Thread.sleep(100);
-//                    }
-//
-//                    dice.setDisable(false);
-//                    welcomeText.setText("" + a);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        };
-//    }
+    public void roll(MouseEvent mouseEvent) {
+        dice.setDisable(true);
+        System.out.println("Rolling");
+        Thread thread = new Thread() {
+            public void run(){
+                System.out.println("aaa");
+                try{
+                    a = (random.nextInt(6)+1);
+                    for (int i = 0; i < 15; i++) {
+                        File diceFile = new File("dice" + a + ".png");
+                        dice.setImage(new javafx.scene.image.Image(diceFile.toURI().toString()));
+                        Thread.sleep(100);
+                    }
+
+                    dice.setDisable(false);
+                    welcomeText.setText("" + a);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
+    }
 }
