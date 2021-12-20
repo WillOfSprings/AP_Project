@@ -35,9 +35,9 @@
             <Image url="@player2.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="63.0" fitWidth="82.0" layoutX="151.0" layoutY="517.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="diceView" fitHeight="63.0" fitWidth="82.0" layoutX="151.0" layoutY="517.0" onMouseClicked="#roll" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@dice4.png" />
+            <Image url="@dice1.png" />
          </image>
       </ImageView>
       <ImageView fx:id="arrow" fitHeight="25.0" fitWidth="39.0" layoutX="168.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">

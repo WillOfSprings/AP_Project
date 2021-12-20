@@ -14,20 +14,27 @@ import javafx.scene.control.Label;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
 
     public int a = 1;
+    int dc = 0;
+    Random random = new Random();
     public ImageView gameBoard;
     public ImageView piece1;
     public ImageView piece2;
 
+    @FXML
+    private ImageView diceView;
     @FXML
     private Pane gamePane;
     @FXML
@@ -135,6 +142,34 @@ public class HelloController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+
+
+    public void roll(MouseEvent mouseEvent) {
+        diceView.setDisable(true);
+
+        Thread thread = new Thread() {
+            public void run(){
+                System.out.println("aaa");
+                try{
+                    dc = (random.nextInt(6)+1);
+                    for (int i = 0; i < 15; i++) {
+                        File diceFile = new File("dice" + dc + ".png");
+                        diceView.setImage(new javafx.scene.image.Image(diceFile.toURI().toString()));
+                        Thread.sleep(100);
+                    }
+
+                    diceView.setDisable(false);
+//                    welcomeText.setText("" + a);
+                    System.out.println(dc);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
     }
 
 }
