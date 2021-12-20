@@ -9,11 +9,36 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ap.ap_project.HelloController">
     <children>
         <Label fx:id="welcomeText" layoutX="286.0" layoutY="163.0" />
-      <ImageView fitHeight="474.0" fitWidth="358.0" layoutX="18.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="197.0" fitWidth="363.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Map6.png" />
+            <Image url="@background.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="197.0" fitWidth="363.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@background.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="197.0" fitWidth="363.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@background.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="197.0" fitWidth="363.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@background.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="197.0" fitWidth="363.0" layoutY="473.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@background.png" />
+         </image>
+      </ImageView>
+        <ImageView fitHeight="474.0" fitWidth="358.0" layoutX="18.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Map6.png" />
+            </image>
+        </ImageView>
         <ImageView fx:id="imageview2" fitHeight="42.0" fitWidth="29.0" layoutX="13.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@piece2.png" />
@@ -25,40 +50,40 @@
                 <Image url="@piece1.png" />
             </image>
         </ImageView>
-      <ImageView fx:id="p1" fitHeight="42.0" fitWidth="82.0" layoutX="69.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@player1.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="p2" fitHeight="42.0" fitWidth="82.0" layoutX="213.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@player2.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="diceView" fitHeight="63.0" fitWidth="82.0" layoutX="151.0" layoutY="517.0" onMouseClicked="#roll" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@dice1.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="arrow" fitHeight="25.0" fitWidth="39.0" layoutX="168.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@arrow2.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="p1Inactive" fitHeight="42.0" fitWidth="82.0" layoutX="68.0" layoutY="530.0" opacity="0.0" pickOnBounds="true">
-        <image>
-            <Image url="@black.png" />
-        </image>
-      </ImageView>
-      <ImageView fx:id="p2Inactive" fitHeight="42.0" fitWidth="82.0" layoutX="213.0" layoutY="530.0" opacity="0.0" pickOnBounds="true">
-         <image>
-            <Image url="@black.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="17.0" fitWidth="20.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@backButton.png" />
-         </image>
-      </ImageView>
+        <ImageView fx:id="p1" fitHeight="42.0" fitWidth="82.0" layoutX="69.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@player1.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="p2" fitHeight="42.0" fitWidth="82.0" layoutX="213.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@player2.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="diceView" fitHeight="63.0" fitWidth="82.0" layoutX="151.0" layoutY="517.0" onMouseClicked="#roll" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@dice1.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="arrow" fitHeight="25.0" fitWidth="39.0" layoutX="168.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@arrow2.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="p1Inactive" fitHeight="42.0" fitWidth="82.0" layoutX="68.0" layoutY="530.0" opacity="0.0" pickOnBounds="true">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="p2Inactive" fitHeight="42.0" fitWidth="82.0" layoutX="213.0" layoutY="530.0" opacity="0.0" pickOnBounds="true">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="17.0" fitWidth="20.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@backButton.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

@@ -152,6 +152,8 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        p2Inactive.setOpacity(0.5);
+
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
@@ -161,8 +163,7 @@ public class HelloController implements Initializable {
 
     public void roll(MouseEvent mouseEvent) {
         diceView.setDisable(true);
-        p1Inactive.setOpacity(0.5);
-        p2Inactive.setOpacity(0.5);
+
 
         Thread thread = new Thread() {
             public void run(){
@@ -181,6 +182,10 @@ public class HelloController implements Initializable {
                     System.out.println(diceFile.getAbsolutePath());
                     diceView.setImage(new Image(diceFile.toURI().toString()));
                     arrow.setVisible(true);
+                    if(p1Inactive.getOpacity()==0)
+                    {p1Inactive.setOpacity(0.5);p2Inactive.setOpacity(0);}
+                    else{p1Inactive.setOpacity(0);p2Inactive.setOpacity(0.5);}
+
 
                     Thread.sleep(100);
 
@@ -200,4 +205,3 @@ public class HelloController implements Initializable {
     }
 
 }
-
