@@ -1,20 +1,27 @@
 package ap.ap_project;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
-public class HelloController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class HelloController implements Initializable {
 
     public int a = 1;
     public ImageView gameBoard;
@@ -35,7 +42,8 @@ public class HelloController {
 
     @FXML
     private Button helB;
-
+    @FXML
+    private ImageView arrow;
     @FXML
     private Label welcomeText;
 
@@ -101,6 +109,34 @@ public class HelloController {
     }
 
 
+    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), new EventHandler<ActionEvent>() {
 
+        double deltaX = 2;
+        double deltaY = 2;
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+
+            arrow.setLayoutY(arrow.getLayoutY() + deltaY);
+
+            //Bounds bounds = scene.getBoundsInLocal();
+            boolean bottomBorder = arrow.getLayoutY() >= (490);
+            boolean topBorder = arrow.getLayoutY() <= ( 470);
+
+
+            if (bottomBorder || topBorder) {
+                deltaY *= -1;
+            }
+        }
+    }));
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
 
 }
+
+
