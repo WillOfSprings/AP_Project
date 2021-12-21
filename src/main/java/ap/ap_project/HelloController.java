@@ -38,6 +38,9 @@ public class HelloController implements Initializable {
 
     // ignore
     public int a = 1;
+    public tempPlayer player1;
+    public tempPlayer player2;
+
 
     //Player turn
     public int turn = 1;
@@ -53,10 +56,10 @@ public class HelloController implements Initializable {
     private ImageView p1Inactive;
     @FXML
     private ImageView p2Inactive;
-//    @FXML
-//    private ImageView p1;
-//    @FXML
-//    private ImageView p2;
+    @FXML
+    private ImageView p1;
+    @FXML
+    private ImageView p2;
 
     @FXML
     private ImageView diceView;
@@ -173,10 +176,10 @@ public class HelloController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
-        tempPlayer p1 = new tempPlayer(imageview2, 0);
-        tempPlayer p2 = new tempPlayer(imageview3, 0);
-        p1.getCoords();
-        p2.getCoords();
+        player1 = new tempPlayer(imageview2, 0);
+        player2 = new tempPlayer(imageview3, 0);
+        player1.getCoords();
+        player2.getCoords();
 
     }
 
@@ -214,23 +217,21 @@ public class HelloController implements Initializable {
                     File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + dc + ".png");
 //                    System.out.println(diceFile.getAbsolutePath());
                     diceView.setImage(new Image(diceFile.toURI().toString()));
-                    arrow.setVisible(true);
 
 
                     //TODO:
                     // if turn == 1, call player1.move
                     // if turn == 2, call player2.move
 
-                    if(p1Inactive.getOpacity()==0)
-                    {
-                        //player 1 is playing
-                        // p1.move(dc);
+
+                    moveThread mt = new moveThread(player1, player2, 1, turn);
+                    if (turn == 1) {
+                        turn = 2;
+                    } else {
+                        turn = 1;
                     }
-                    else
-                    {
-                        //player 2 is playing
-                       //p2.move(dc);
-                    }
+                    mt.start();
+
                     //TODO: Needs to be looked at.
                     //after every turn checks if p1 opacity is 0 then changes to 0.5 and p2 to 0
                     //else vice versa
@@ -240,7 +241,7 @@ public class HelloController implements Initializable {
 
 
                     Thread.sleep(100);
-
+                    arrow.setVisible(true);
                     diceView.setDisable(false);
 
 
@@ -258,6 +259,33 @@ public class HelloController implements Initializable {
         // To reset, dk where to place
 //        p1Inactive.setOpacity(0.0);
 //        p2Inactive.setOpacity(0.0);
+    }
+
+
+    public class moveThread extends Thread{
+        tempPlayer player1;
+        tempPlayer player2;
+        int dcnumber;
+        int turn;
+        tempPlayer currentPlayer;
+
+        public moveThread(tempPlayer player1, tempPlayer player2, int dcnumber, int turn){
+            this.player1 = player1;
+            this.player2 = player2;
+            this.dcnumber = dcnumber;
+            this.turn = turn;
+        }
+
+        @Override
+        public void run(){
+            if(turn == 1){
+                currentPlayer = player1;
+            }
+            else{
+                currentPlayer = player2;
+            }
+            currentPlayer.move(dcnumber);
+        }
     }
 
 }

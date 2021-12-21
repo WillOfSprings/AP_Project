@@ -44,7 +44,6 @@
                 <Image url="@piece2.png" />
             </image>
         </ImageView>
-        <Button fx:id="helB" layoutX="4.0" layoutY="840.0" mnemonicParsing="false" onAction="#onHelloButtonClick" text="Button" />
         <ImageView fx:id="imageview3" fitHeight="42.0" fitWidth="26.0" layoutX="56.0" layoutY="712.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@piece1.png" />
