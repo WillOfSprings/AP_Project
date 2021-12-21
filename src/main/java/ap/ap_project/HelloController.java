@@ -23,6 +23,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
+//import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.Random;
@@ -52,10 +53,10 @@ public class HelloController implements Initializable {
     private ImageView p1Inactive;
     @FXML
     private ImageView p2Inactive;
-    @FXML
-    private ImageView p1;
-    @FXML
-    private ImageView p2;
+//    @FXML
+//    private ImageView p1;
+//    @FXML
+//    private ImageView p2;
 
     @FXML
     private ImageView diceView;
@@ -188,7 +189,6 @@ public class HelloController implements Initializable {
         mediaPlayer.play();
     }
 
-
     // Called when dice is pressed, dice disabled for the moment.
     public void roll(MouseEvent mouseEvent) {
         diceView.setDisable(true);
@@ -197,6 +197,7 @@ public class HelloController implements Initializable {
         // Thread: hide arrow, play dice animation and audio, set dice face correspondingly, enable dice again.
         Thread thread = new Thread() {
             public void run(){
+
                 System.out.println("aaa");
                 try{
                     arrow.setVisible(false);
@@ -215,7 +216,24 @@ public class HelloController implements Initializable {
                     diceView.setImage(new Image(diceFile.toURI().toString()));
                     arrow.setVisible(true);
 
+
+                    //TODO:
+                    // if turn == 1, call player1.move
+                    // if turn == 2, call player2.move
+
+                    if(p1Inactive.getOpacity()==0)
+                    {
+                        //player 1 is playing
+                        // p1.move(dc);
+                    }
+                    else
+                    {
+                        //player 2 is playing
+                       //p2.move(dc);
+                    }
                     //TODO: Needs to be looked at.
+                    //after every turn checks if p1 opacity is 0 then changes to 0.5 and p2 to 0
+                    //else vice versa
                     if(p1Inactive.getOpacity()==0)
                     {p1Inactive.setOpacity(0.5);p2Inactive.setOpacity(0);}
                     else{p1Inactive.setOpacity(0);p2Inactive.setOpacity(0.5);}
@@ -225,9 +243,7 @@ public class HelloController implements Initializable {
 
                     diceView.setDisable(false);
 
-                    //TODO:
-                    // if turn == 1, call player1.move
-                    // if turn == 2, call player2.move
+
 
 
                     //TODO: Remove debug comments.
