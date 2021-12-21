@@ -176,7 +176,7 @@ public class HelloController implements Initializable {
                     arrow.setVisible(false);
                     dc = (random.nextInt(6)+1);
                     for (int i = 0; i < 15; i++) {
-                        File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + (random.nextInt(6)+1) + ".png");
+                        File diceFile = new File("src\\main\\resources\\ap\\ap_project\\diceRoll" + (i+1)+ ".png");
                         System.out.println(diceFile.getAbsolutePath());
                         diceView.setImage(new Image(diceFile.toURI().toString()));
                         Thread.sleep(100);
