@@ -128,9 +128,9 @@ public class HelloController implements Initializable {
     }
 
 
-    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
+    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(25), new EventHandler<ActionEvent>() {
 
-        double deltaY = 4;
+        double deltaY = 2;
 
         @Override
         public void handle(ActionEvent actionEvent) {
