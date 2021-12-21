@@ -50,34 +50,34 @@
                 <Image url="@piece1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="p1" fitHeight="48.0" fitWidth="87.0" layoutX="143.0" layoutY="772.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="p1" fitHeight="48.0" fitWidth="87.0" layoutX="143.0" layoutY="767.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@player1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="p2" fitHeight="48.0" fitWidth="87.0" layoutX="300.0" layoutY="772.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="p2" fitHeight="48.0" fitWidth="87.0" layoutX="300.0" layoutY="767.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@player2.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="p1Inactive" fitHeight="48.0" fitWidth="87.0" layoutX="143.0" layoutY="772.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="p1Inactive" fitHeight="48.0" fitWidth="87.0" layoutX="143.0" layoutY="767.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@black1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="p2Inactive" fitHeight="48.0" fitWidth="87.0" layoutX="300.0" layoutY="772.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="p2Inactive" fitHeight="48.0" fitWidth="87.0" layoutX="300.0" layoutY="767.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@black2.png" />
-            </image>
-        </ImageView>
-        <ImageView fx:id="diceView" fitHeight="73.0" fitWidth="86.0" layoutX="229.0" layoutY="758.0" onMouseClicked="#roll" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@dice1.png" />
             </image>
         </ImageView>
         <ImageView fx:id="arrow" fitHeight="38.0" fitWidth="42.0" layoutX="245.0" layoutY="717.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@arrow2.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="diceView" fitHeight="73.0" fitWidth="78.0" layoutX="229.0" layoutY="752.0" onMouseClicked="#roll" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@dice1.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="26.0" fitWidth="28.0" layoutX="18.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
