@@ -111,7 +111,14 @@ public class tempPlayer {
 
         else {
 
-            if (position + dc <= nearestTen) {
+            if ((position)%10 == 0) {
+                this.setCoords(lX, lY - 65.3);
+                Xdistance *= -1;
+                this.setCoords((lX + ((dc-1) * Xdistance)), lY);
+
+            }
+
+            else if (position + dc <= nearestTen) {
                 this.setCoords(lX + (Xdistance * dc), lY);
 
             } else {
