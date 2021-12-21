@@ -33,9 +33,13 @@ public class HelloController implements Initializable {
     // 100 at 33x66
     // x distance = 45.8
     // y distance = 65.3
-    // 0 at 33x653.7
+    // 1 at 33x653.7
 
+    // ignore
     public int a = 1;
+
+    //Player turn
+    public int turn = 1;
 
     // For roll()
     int dc = 0;
