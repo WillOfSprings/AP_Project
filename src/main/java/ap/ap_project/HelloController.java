@@ -99,15 +99,16 @@ public class HelloController implements Initializable {
 //        path.getElements().add(new CubicCurveTo (40f, 30f, 50f, 34f, 60f, 50f));
 //        path.getElements().add(new CubicCurveTo (80f, 70f, 90f, 84f, 100f, 100f));
         MoveTo moveTo = new MoveTo();
-        moveTo.setX(imageview.getTranslateX());
-        moveTo.setY(imageview.getTranslateY());
+        moveTo.setX(imageview.getLayoutX());
+        moveTo.setY(imageview.getLayoutY());
+        moveTo.isAbsolute();
 
-        double ogx = imageview.getTranslateX();
-        double ogy = imageview.getTranslateY();
+        double ogx = imageview.getLayoutX();
+        double ogy = imageview.getLayoutY();
 
-        double finxlx = imageview.getTranslateX() + 200f;
+        double finxlx = imageview.getLayoutX() + 200f;
         double inc = 50f;
-        double finxly = imageview.getTranslateY();
+        double finxly = imageview.getLayoutY();
         path.getElements().add(moveTo);
 
 
@@ -123,7 +124,7 @@ public class HelloController implements Initializable {
 
 
 //        path.getElements().add(new CubicCurveTo(130f, 10f, -75f, -100f, 120f, 150f));
-        welcomeText.setText(String.format("%f and %f.", imageview.getTranslateX(), imageview.getTranslateY()));
+        welcomeText.setText(String.format("%f and %f.", imageview.getLayoutX(), imageview.getLayoutY()));
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.millis(2000));
         pathTransition.setNode(imageview);
@@ -133,9 +134,9 @@ public class HelloController implements Initializable {
         pathTransition.setAutoReverse(false);
         pathTransition.play();
 
-        imageview.setTranslateX(finxlx);
-        imageview.setTranslateY(finxly);
-        welcomeText.setText(String.format("%f and %f.", imageview.getTranslateX(), imageview.getTranslateY()));
+        imageview.setLayoutX(finxlx);
+        imageview.setLayoutY(finxly);
+        welcomeText.setText(String.format("%f and %f.", imageview.getLayoutX(), imageview.getLayoutY()));
     }
 
 
@@ -167,6 +168,11 @@ public class HelloController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
+        tempPlayer p1 = new tempPlayer(imageview2, 0);
+        tempPlayer p2 = new tempPlayer(imageview3, 0);
+        p1.getCoords();
+        p2.getCoords();
+
     }
 
 
@@ -195,13 +201,13 @@ public class HelloController implements Initializable {
                     for (int i = 0; i < 15; i++) {
                         File diceFile = new File("src\\main\\resources\\ap\\ap_project\\diceRoll" + (i+1)+ ".png");
                         //TODO: Remove debug comments.
-                        System.out.println(diceFile.getAbsolutePath());
+//                        System.out.println(diceFile.getAbsolutePath());
                         diceView.setImage(new Image(diceFile.toURI().toString()));
                         Thread.sleep(100);
                     }
 
                     File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + dc + ".png");
-                    System.out.println(diceFile.getAbsolutePath());
+//                    System.out.println(diceFile.getAbsolutePath());
                     diceView.setImage(new Image(diceFile.toURI().toString()));
                     arrow.setVisible(true);
 
