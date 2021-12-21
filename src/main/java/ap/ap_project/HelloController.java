@@ -128,10 +128,9 @@ public class HelloController implements Initializable {
     }
 
 
-    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), new EventHandler<ActionEvent>() {
+    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
 
-        double deltaX = 2;
-        double deltaY = 2;
+        double deltaY = 4;
 
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -139,8 +138,8 @@ public class HelloController implements Initializable {
             arrow.setLayoutY(arrow.getLayoutY() + deltaY);
 
             //Bounds bounds = scene.getBoundsInLocal();
-            boolean bottomBorder = arrow.getLayoutY() >= (510);
-            boolean topBorder = arrow.getLayoutY() <= ( 490);
+            boolean bottomBorder = arrow.getLayoutY() >= (727);
+            boolean topBorder = arrow.getLayoutY() <= (707);
 
 
             if (bottomBorder || topBorder) {
