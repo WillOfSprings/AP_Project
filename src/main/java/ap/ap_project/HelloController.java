@@ -77,10 +77,13 @@ public class HelloController implements Initializable {
     @FXML
     private Cylinder abc;
 
+    //TODO: IDK what this is? -Pratyush
     @FXML
     protected void handleButtonAction() {
         gamePane.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
     }
+
+    //TODO: Wonky af, needs rethinking -Pratyush
     @FXML
     protected void onHelloButtonClick(){
 
@@ -167,6 +170,7 @@ public class HelloController implements Initializable {
     }
 
 
+    // Dice audio
     private void playDiceAudio(){
         File diceAudioFile = new File("src\\main\\resources\\ap\\ap_project\\diceRollAudio.mp3");
         Media diceAudio = new Media(diceAudioFile.toURI().toString());
@@ -174,10 +178,13 @@ public class HelloController implements Initializable {
         mediaPlayer.play();
     }
 
+
+    // Called when dice is pressed, dice disabled for the moment.
     public void roll(MouseEvent mouseEvent) {
         diceView.setDisable(true);
 
 
+        // Thread: hide arrow, play dice animation and audio, set dice face correspondingly, enable dice again.
         Thread thread = new Thread() {
             public void run(){
                 System.out.println("aaa");
@@ -187,6 +194,7 @@ public class HelloController implements Initializable {
                     playDiceAudio();
                     for (int i = 0; i < 15; i++) {
                         File diceFile = new File("src\\main\\resources\\ap\\ap_project\\diceRoll" + (i+1)+ ".png");
+                        //TODO: Remove debug comments.
                         System.out.println(diceFile.getAbsolutePath());
                         diceView.setImage(new Image(diceFile.toURI().toString()));
                         Thread.sleep(100);
@@ -196,6 +204,8 @@ public class HelloController implements Initializable {
                     System.out.println(diceFile.getAbsolutePath());
                     diceView.setImage(new Image(diceFile.toURI().toString()));
                     arrow.setVisible(true);
+
+                    //TODO: Needs to be looked at.
                     if(p1Inactive.getOpacity()==0)
                     {p1Inactive.setOpacity(0.5);p2Inactive.setOpacity(0);}
                     else{p1Inactive.setOpacity(0);p2Inactive.setOpacity(0.5);}
@@ -205,6 +215,7 @@ public class HelloController implements Initializable {
 
                     diceView.setDisable(false);
 //                    welcomeText.setText("" + a);
+                    //TODO: Remove debug comments.
                     System.out.println(dc);
                 } catch (Exception e) {
                     e.printStackTrace();
