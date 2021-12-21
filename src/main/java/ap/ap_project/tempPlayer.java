@@ -53,18 +53,18 @@ public class tempPlayer {
 
     static {
         snakes = new HashMap<Integer,coords>();
-        snakes.put(24,new coords(226.1, 665.35, 1, 5));snakes.put(56,new coords(226.1, 534.75, 1, 25));
-        snakes.put(43,new coords(88.7, 534.75, 1, 22));snakes.put(60,new coords(226.1, 404.15, 1, 42));
+        snakes.put(24,new coords(226.1, 665.35, 1, 5));snakes.put(56,new coords(226.1, 534.75, -1, 25));
+        snakes.put(43,new coords(88.7, 534.75, 1, 22));snakes.put(60,new coords(88.7, 404.15, -1, 42));
         snakes.put(69,new coords(363.5, 404.15, 1, 48));snakes.put(86,new coords(363.5, 338.85, -1, 53));
-        snakes.put(98,new coords(134.5, 338.85, -1, 58));snakes.put(96,new coords(180.3, 142.95, 1, 84));
-        snakes.put(94,new coords(363.5, 208.25, -1, 73));snakes.put(90,new coords(409.3, 208.25, -1, 72));
+        snakes.put(98,new coords(134.5, 338.85, 1, 58));snakes.put(96,new coords(180.3, 142.95, -1, 84));
+        snakes.put(94,new coords(363.5, 208.25, 1, 73));snakes.put(90,new coords(409.3, 208.25, -1, 72));
 
         ladders  = new HashMap<Integer,coords>();
         ladders.put(3,new coords(42.9, 534.75, 1, 21)); ladders.put(29,new coords(363.5, 469.45, -1, 33));
-        ladders.put(16,new coords(271.9, 534.75, 1, 26)); ladders.put(8,new coords(271.9, 404.15, 1, 46));
-        ladders.put(37,new coords(226.1, 273.55, 1, 65)); ladders.put(64,new coords(180.3, 208.25, -1, 77));
+        ladders.put(16,new coords(271.9, 534.75, -1, 26)); ladders.put(8,new coords(271.9, 404.15, 1, 46));
+        ladders.put(37,new coords(226.1, 273.55, -1, 65)); ladders.put(64,new coords(180.3, 208.25, -1, 77));
         ladders.put(50,new coords(455.1, 273.55, 1, 70)); ladders.put(61,new coords(88.7, 142.95, 1, 82));
-        ladders.put(76,new coords(271.9, 77.65, -1, 95)); ladders.put(89,new coords(455.1, 77.65, -1, 91));
+        ladders.put(76,new coords(271.9, 77.65, 1, 95)); ladders.put(89,new coords(455.1, 77.65, -1, 91));
 
     }
 
