@@ -17,6 +17,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
@@ -164,6 +167,12 @@ public class HelloController implements Initializable {
     }
 
 
+    private void playDiceAudio(){
+        File diceAudioFile = new File("src\\main\\resources\\ap\\ap_project\\diceRollAudio.mp3");
+        Media diceAudio = new Media(diceAudioFile.toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(diceAudio);
+        mediaPlayer.play();
+    }
 
     public void roll(MouseEvent mouseEvent) {
         diceView.setDisable(true);
@@ -175,6 +184,7 @@ public class HelloController implements Initializable {
                 try{
                     arrow.setVisible(false);
                     dc = (random.nextInt(6)+1);
+                    playDiceAudio();
                     for (int i = 0; i < 15; i++) {
                         File diceFile = new File("src\\main\\resources\\ap\\ap_project\\diceRoll" + (i+1)+ ".png");
                         System.out.println(diceFile.getAbsolutePath());
