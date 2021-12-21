@@ -64,7 +64,7 @@ public class tempPlayer {
         ladders.put(16,new coords(271.9, 534.75, 1, 26)); ladders.put(8,new coords(271.9, 404.15, 1, 46));
         ladders.put(37,new coords(226.1, 273.55, 1, 65)); ladders.put(64,new coords(180.3, 208.25, -1, 77));
         ladders.put(50,new coords(455.1, 273.55, 1, 70)); ladders.put(61,new coords(88.7, 142.95, 1, 82));
-        ladders.put(76,new coords(271.9, 77.65, -1, 95)); ladders.put(89,new coords(455.1, 455.1, -1, 91));
+        ladders.put(76,new coords(271.9, 77.65, -1, 95)); ladders.put(89,new coords(455.1, 77.65, -1, 91));
 
     }
 
@@ -92,6 +92,10 @@ public class tempPlayer {
         //System.out.print("in move");
 
         int nearestTen = this.position + (10 - (this.position % 10));
+        if(this.position%10==0)
+        {
+            nearestTen=this.position;
+        }
 
         if (position == 0) {
             System.out.print("in move");
@@ -138,6 +142,7 @@ public class tempPlayer {
         if (position == 100) {
             System.out.println(" Winner ");
         }
+        System.out.println(position);
 
     }
 

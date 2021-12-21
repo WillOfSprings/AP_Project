@@ -224,7 +224,7 @@ public class HelloController implements Initializable {
                     // if turn == 2, call player2.move
 
 
-                    moveThread mt = new moveThread(player1, player2, 1, turn);
+                    moveThread mt = new moveThread(player1, player2, dc, turn);
                     if (turn == 1) {
                         turn = 2;
                     } else {
