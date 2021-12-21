@@ -32,10 +32,14 @@ public class tempPlayer {
         System.out.println("X: " + this.lX + " Y: " + this.lY);
     }
 
+    //TODO:
     // if pos == 0; wait for dice == 1;
     // pos >0, new pos = pos + dice
+    // if new pos > 100, don't move
     // if new pos <= nearest 10, translate x
     // else, translate to nearest 10, translate 1 y, translate to new pos - nearest 10
+    // After move, check if pos == 100, if yes, pop up win screen
+
 
 
 }

@@ -224,7 +224,12 @@ public class HelloController implements Initializable {
                     Thread.sleep(100);
 
                     diceView.setDisable(false);
-//                    welcomeText.setText("" + a);
+
+                    //TODO:
+                    // if turn == 1, call player1.move
+                    // if turn == 2, call player2.move
+
+
                     //TODO: Remove debug comments.
                     System.out.println(dc);
                 } catch (Exception e) {
