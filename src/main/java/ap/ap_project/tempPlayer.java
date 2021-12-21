@@ -36,4 +36,6 @@ public class tempPlayer {
     // pos >0, new pos = pos + dice
     // if new pos <= nearest 10, translate x
     // else, translate to nearest 10, translate 1 y, translate to new pos - nearest 10
+
+
 }
