@@ -375,7 +375,7 @@ class moveThread extends Thread{
             }
             player1.move(dcnumber);
             currentPlayer = player1;
-            if(player2.getPosition()== player1.getPosition())
+            if((player2.getPosition()== player1.getPosition()) && player1.getPosition()!=0)
             {
                 player1.overlap=1;
                 File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
@@ -398,7 +398,7 @@ class moveThread extends Thread{
 
             }
             player2.move(dcnumber);
-            if(player1.getPosition()== player2.getPosition())
+            if((player2.getPosition()== player1.getPosition()) && player1.getPosition()!=0)
             {
                 //overlap
                 player1.overlap=1;
