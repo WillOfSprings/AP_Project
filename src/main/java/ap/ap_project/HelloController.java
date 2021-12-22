@@ -334,8 +334,8 @@ class FinishThread implements Runnable {
      * else, load finishing sequence to the scene, from there, exit or restart.
      */
 
-    TempPlayer player1;
-    TempPlayer player2;
+    private final TempPlayer player1;
+    private final TempPlayer player2;
 
     public FinishThread(TempPlayer player1, TempPlayer player2){
         this.player1 = player1;
