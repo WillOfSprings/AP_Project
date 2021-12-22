@@ -3,6 +3,7 @@ package ap.ap_project;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -264,7 +265,7 @@ public class HelloController implements Initializable {
                     Thread.sleep(300);
 
                     finishThread ft = new finishThread(player1, player2);
-                    ft.start();
+                    Platform.runLater(ft);
                     arrow.setVisible(true);
                     diceView.setDisable(false);
 
@@ -384,11 +385,9 @@ class moveThread extends Thread{
 }
 
 
-class finishThread extends Thread {
+class finishThread implements Runnable {
 
-    private static double winnerX, winnerY, loserX, loserY;
-    private static int winner;
-    private static File winFile;
+
     tempPlayer player1;
     tempPlayer player2;
 
@@ -397,47 +396,25 @@ class finishThread extends Thread {
         this.player2 = player2;
     }
 
-    public static int getWinner(){
-        return finishThread.winner;
-    }
 
-    public static double getWinnerX(){
-        return finishThread.winnerX;
-    }
-
-    public static double getWinnerY(){
-        return finishThread.winnerY;
-    }
-
-    public static double getLoserX(){
-        return finishThread.loserX;
-    }
-
-    public static double getLoserY(){
-        return finishThread.loserY;
-    }
-
-    public static File getWinFile(){
-        return finishThread.winFile;
-    }
 
     @Override
     public void run(){
         if(player1.getPosition() == 100){
-            winner = 1;
-            winnerX = player1.getX();
-            winnerY = player1.getY();
-            loserX = player2.getX();
-            loserY = player2.getY();
-            winFile = new File("src\\main\\resources\\ap\\ap_project\\p1win.png");
+            WinInfo.setWinner(1);
+            WinInfo.setWinnerX(player1.getX());
+            WinInfo.setWinnerY(player1.getY());
+            WinInfo.setLoserX(player2.getX());
+            WinInfo.setLoserY(player2.getY());
+            WinInfo.setWinFile(new File("src\\main\\resources\\ap\\ap_project\\p1win.png"));
         }
         else if (player2.getPosition() == 100){
-            winner = 2;
-            winnerX = player2.getX();
-            winnerY = player2.getY();
-            loserX = player1.getX();
-            loserY = player1.getY();
-            winFile = new File("src\\main\\resources\\ap\\ap_project\\p2win.png");
+            WinInfo.setWinner(2);
+            WinInfo.setWinnerX(player2.getX());
+            WinInfo.setWinnerY(player2.getY());
+            WinInfo.setLoserX(player1.getX());
+            WinInfo.setLoserY(player1.getY());
+            WinInfo.setWinFile(new File("src\\main\\resources\\ap\\ap_project\\p2win.png"));
         }
 
         if (player1.getPosition() == 100 || player2.getPosition() == 100){

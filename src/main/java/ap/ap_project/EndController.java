@@ -56,10 +56,10 @@ public class EndController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        if (finishThread.getWinner() == 1){
+        if (WinInfo.getWinner() == 1){
             win = p1end;
             lose = p2end;
-        } else if (finishThread.getWinner() == 2){
+        } else if (WinInfo.getWinner() == 2){
             win = p2end;
             lose = p1end;
         } else {
@@ -67,11 +67,11 @@ public class EndController implements Initializable {
             System.exit(1);
         }
 
-        win.setLayoutX(finishThread.getWinnerX());
-        win.setLayoutY(finishThread.getWinnerY());
-        lose.setLayoutX(finishThread.getLoserX());
-        lose.setLayoutY(finishThread.getLoserY());
-        winPopUp.setImage(new Image(finishThread.getWinFile().toURI().toString()));
+        win.setLayoutX(WinInfo.getWinnerX());
+        win.setLayoutY(WinInfo.getWinnerY());
+        lose.setLayoutX(WinInfo.getLoserX());
+        lose.setLayoutY(WinInfo.getLoserY());
+        winPopUp.setImage(new Image(WinInfo.getWinFile().toURI().toString()));
 
 
     }
@@ -94,5 +94,61 @@ public class EndController implements Initializable {
 
     }
 
+
+}
+
+class WinInfo {
+
+    private static double winnerX, winnerY, loserX, loserY;
+    private static int winner;
+    private static File winFile;
+
+    public static int getWinner(){
+        return WinInfo.winner;
+    }
+
+    public static double getWinnerX(){
+        return WinInfo.winnerX;
+    }
+
+    public static double getWinnerY(){
+        return WinInfo.winnerY;
+    }
+
+    public static double getLoserX(){
+        return WinInfo.loserX;
+    }
+
+    public static double getLoserY(){
+        return WinInfo.loserY;
+    }
+
+    public static File getWinFile(){
+        return WinInfo.winFile;
+    }
+
+    public static void setWinner(int winner){
+        WinInfo.winner = winner;
+    }
+
+    public static void setWinnerX(double winnerX){
+        WinInfo.winnerX = winnerX;
+    }
+
+    public static void setWinnerY(double winnerY){
+        WinInfo.winnerY = winnerY;
+    }
+
+    public static void setLoserX(double loserX){
+        WinInfo.loserX = loserX;
+    }
+
+    public static void setLoserY(double loserY){
+        WinInfo.loserY = loserY;
+    }
+
+    public static void setWinFile(File winFile){
+        WinInfo.winFile = winFile;
+    }
 
 }
