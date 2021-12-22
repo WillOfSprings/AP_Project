@@ -6,9 +6,13 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.animation.PathTransition;
@@ -21,11 +25,14 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 //import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -52,6 +59,20 @@ public class HelloController implements Initializable {
     public ImageView piece1;
     public ImageView piece2;
 
+    private Parent root;
+    private Scene scene;
+    private Stage stage;
+
+    @FXML
+    private ImageView backButton;
+    @FXML
+    private ImageView backOverlay;
+    @FXML
+    private ImageView backPopUp;
+    @FXML
+    private ImageView popBack;
+    @FXML
+    private ImageView popOkay;
     @FXML
     private ImageView p1Inactive;
     @FXML
@@ -261,31 +282,47 @@ public class HelloController implements Initializable {
 //        p2Inactive.setOpacity(0.0);
     }
 
+    public void changeScene(MouseEvent mouseEvent){
 
-    public class moveThread extends Thread{
-        tempPlayer player1;
-        tempPlayer player2;
-        int dcnumber;
-        int turn;
-        tempPlayer currentPlayer;
-
-        public moveThread(tempPlayer player1, tempPlayer player2, int dcnumber, int turn){
-            this.player1 = player1;
-            this.player2 = player2;
-            this.dcnumber = dcnumber;
-            this.turn = turn;
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        @Override
-        public void run(){
-            if(turn == 1){
-                currentPlayer = player1;
-            }
-            else{
-                currentPlayer = player2;
-            }
-            currentPlayer.move(dcnumber);
-        }
     }
 
+
+
+}
+
+
+class moveThread extends Thread{
+    tempPlayer player1;
+    tempPlayer player2;
+    int dcnumber;
+    int turn;
+    tempPlayer currentPlayer;
+
+    public moveThread(tempPlayer player1, tempPlayer player2, int dcnumber, int turn){
+        this.player1 = player1;
+        this.player2 = player2;
+        this.dcnumber = dcnumber;
+        this.turn = turn;
+    }
+
+    @Override
+    public void run(){
+        if(turn == 1){
+            currentPlayer = player1;
+        }
+        else{
+            currentPlayer = player2;
+        }
+        currentPlayer.move(dcnumber);
+    }
 }

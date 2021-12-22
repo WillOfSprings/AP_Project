@@ -133,7 +133,11 @@ public class tempPlayer {
             }
         }
 
-
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         position += dc;
         if (snakes.containsKey(position)) {
             this.setCoords(snakes.get(position).getX(), snakes.get(position).getY());
