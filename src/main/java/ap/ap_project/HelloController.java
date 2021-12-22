@@ -35,8 +35,8 @@ public class HelloController implements Initializable {
     // 1 at 33x653.7
 
     // Custom variables
-    private tempPlayer player1;
-    private tempPlayer player2;
+    private TempPlayer player1;
+    private TempPlayer player2;
     //Player turn
     private int turn = 1;
     // For roll()
@@ -108,8 +108,8 @@ public class HelloController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
-        player1 = new tempPlayer(imageview2, 0, "Player1");
-        player2 = new tempPlayer(imageview3, 0, "Player2");
+        player1 = new TempPlayer(imageview2, 0, "Player1");
+        player2 = new TempPlayer(imageview3, 0, "Player2");
 
     }
 
@@ -151,7 +151,7 @@ public class HelloController implements Initializable {
                     // if turn == 2, call player2.move, same way
 
 
-                    moveThread mt = new moveThread(player1, player2, dc, turn);
+                    MoveThread mt = new MoveThread(player1, player2, dc, turn);
                     mt.start();
                     if (turn == 1) {
                         turn = 2;
@@ -166,7 +166,7 @@ public class HelloController implements Initializable {
                     Thread.sleep(500);
 
                     // Check for game finish
-                    finishThread ft = new finishThread(player1, player2);
+                    FinishThread ft = new FinishThread(player1, player2);
                     Platform.runLater(ft);
 
                     // If not, continue
@@ -218,15 +218,15 @@ public class HelloController implements Initializable {
 }
 
 // Thread to move player based on die number.
-class moveThread extends Thread{
+class MoveThread extends Thread{
 
-    private final tempPlayer player1;
-    private final tempPlayer player2;
+    private final TempPlayer player1;
+    private final TempPlayer player2;
     private final int dcnumber;
     private final int turn;
 
 
-    public moveThread(tempPlayer player1, tempPlayer player2, int dcnumber, int turn){
+    public MoveThread(TempPlayer player1, TempPlayer player2, int dcnumber, int turn){
         this.player1 = player1;
         this.player2 = player2;
         this.dcnumber = dcnumber;
@@ -236,7 +236,7 @@ class moveThread extends Thread{
 
     /* Alternate logic, deprecated
 
-     * tempPlayer.overlap = 0;
+     * TempPlayer.overlap = 0;
      * if player.overlap == 0
      * currentPlayer.move(dcnumber, player2, imageview overlap);
      * curretplayer pos + dice == player2 pos
@@ -326,7 +326,7 @@ class moveThread extends Thread{
 }
 
 
-class finishThread implements Runnable {
+class FinishThread implements Runnable {
 
     /* Logic: Thread to finish game, runs after every dice roll.
      * if player1 or player2 is at 100, a static class' variables are set for next scene to retrieve
@@ -334,10 +334,10 @@ class finishThread implements Runnable {
      * else, load finishing sequence to the scene, from there, exit or restart.
      */
 
-    tempPlayer player1;
-    tempPlayer player2;
+    TempPlayer player1;
+    TempPlayer player2;
 
-    public finishThread(tempPlayer player1, tempPlayer player2){
+    public FinishThread(TempPlayer player1, TempPlayer player2){
         this.player1 = player1;
         this.player2 = player2;
     }

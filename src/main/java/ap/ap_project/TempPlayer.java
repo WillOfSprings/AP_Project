@@ -9,13 +9,13 @@ import java.util.HashMap;
 // 1 at 33x653.7
 
 // Coords for snakes and ladders, present in hashmap
-class coords{
+class Coords {
     private final double x;
     private final double y;
     private final int multiplier;
     private final int position;
 
-    public coords(double x, double y, int multiplier, int position){
+    public Coords(double x, double y, int multiplier, int position){
         this.x = x;
         this.y = y;
         this.multiplier = multiplier;
@@ -42,13 +42,13 @@ class coords{
 
 
 // Player class, X and Ydistance = distance between 2 tiles, piece image, position, overlap flag and coords
-public class tempPlayer {
+public class TempPlayer {
 
     private double Xdistance = 45.8f;
     private final double Ydistance = 65.3f;
 
-    private final static HashMap<Integer, coords> snakes;
-    private final static HashMap<Integer, coords> ladders;
+    private final static HashMap<Integer, Coords> snakes;
+    private final static HashMap<Integer, Coords> ladders;
 
     private final String name;
     private final ImageView piece;
@@ -58,24 +58,24 @@ public class tempPlayer {
     private double lY;
 
     static {
-        snakes = new HashMap<Integer,coords>();
-        snakes.put(24,new coords(226.1, 665.35, 1, 5));snakes.put(56,new coords(226.1, 534.75, -1, 25));
-        snakes.put(43,new coords(88.7, 534.75, 1, 22));snakes.put(60,new coords(88.7, 404.15, -1, 42));
-        snakes.put(69,new coords(363.5, 404.15, 1, 48));snakes.put(86,new coords(363.5, 338.85, -1, 53));
-        snakes.put(98,new coords(134.5, 338.85, 1, 58));snakes.put(96,new coords(180.3, 142.95, -1, 84));
-        snakes.put(94,new coords(363.5, 208.25, 1, 73));snakes.put(90,new coords(409.3, 208.25, -1, 72));
+        snakes = new HashMap<Integer,Coords>();
+        snakes.put(24,new Coords(226.1, 665.35, 1, 5));snakes.put(56,new Coords(226.1, 534.75, -1, 25));
+        snakes.put(43,new Coords(88.7, 534.75, 1, 22));snakes.put(60,new Coords(88.7, 404.15, -1, 42));
+        snakes.put(69,new Coords(363.5, 404.15, 1, 48));snakes.put(86,new Coords(363.5, 338.85, -1, 53));
+        snakes.put(98,new Coords(134.5, 338.85, 1, 58));snakes.put(96,new Coords(180.3, 142.95, -1, 84));
+        snakes.put(94,new Coords(363.5, 208.25, 1, 73));snakes.put(90,new Coords(409.3, 208.25, -1, 72));
 
-        ladders  = new HashMap<Integer,coords>();
-        ladders.put(3,new coords(42.9, 534.75, 1, 21)); ladders.put(29,new coords(363.5, 469.45, -1, 33));
-        ladders.put(16,new coords(271.9, 534.75, -1, 26)); ladders.put(8,new coords(271.9, 404.15, 1, 46));
-        ladders.put(37,new coords(226.1, 273.55, -1, 65)); ladders.put(64,new coords(180.3, 208.25, -1, 77));
-        ladders.put(50,new coords(455.1, 273.55, 1, 70)); ladders.put(61,new coords(88.7, 142.95, 1, 82));
-        ladders.put(76,new coords(271.9, 77.65, 1, 95)); ladders.put(89,new coords(455.1, 77.65, -1, 91));
+        ladders  = new HashMap<Integer,Coords>();
+        ladders.put(3,new Coords(42.9, 534.75, 1, 21)); ladders.put(29,new Coords(363.5, 469.45, -1, 33));
+        ladders.put(16,new Coords(271.9, 534.75, -1, 26)); ladders.put(8,new Coords(271.9, 404.15, 1, 46));
+        ladders.put(37,new Coords(226.1, 273.55, -1, 65)); ladders.put(64,new Coords(180.3, 208.25, -1, 77));
+        ladders.put(50,new Coords(455.1, 273.55, 1, 70)); ladders.put(61,new Coords(88.7, 142.95, 1, 82));
+        ladders.put(76,new Coords(271.9, 77.65, 1, 95)); ladders.put(89,new Coords(455.1, 77.65, -1, 91));
 
     }
 
 
-    public tempPlayer(ImageView piece, int position, String name){
+    public TempPlayer(ImageView piece, int position, String name){
         this.name = name;
         this.piece = piece;
         this.position = position;
