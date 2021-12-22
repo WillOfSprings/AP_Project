@@ -331,8 +331,6 @@ class moveThread extends Thread{
     int dcnumber;
     int turn;
     tempPlayer currentPlayer;
-    ImageView imageview3;
-    ImageView imageview2;
 
     public moveThread(tempPlayer player1, tempPlayer player2, int dcnumber, int turn){
         this.player1 = player1;
@@ -360,56 +358,53 @@ class moveThread extends Thread{
     */
     @Override
     public void run(){
-        int overlap=0;
-//        if(turn == 1){
-//            if(overlap==1)
-//            {
-//                overlap=0;
-//                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\piece2.png");
-//
-//                imageview2.setImage(new Image(diceFile.toURI().toString()));
-//                imageview3.setOpacity(1);
-//            }
-//            currentPlayer = player1;
-//            if(player2.position== player1.position+dcnumber)
-//            {
-//                overlap=1;
-//                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
-//
-//                imageview3.setImage(new Image(diceFile.toURI().toString()));
-//                imageview2.setOpacity(0);
-//
-//            }
-//        }
-//        else{
-//            currentPlayer = player2;
-//            if(overlap==1)
-//            {
-//                overlap=0;
-//                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\piece1.png");
-//
-//                imageview3.setImage(new Image(diceFile.toURI().toString()));
-//                imageview2.setOpacity(1);
-//
-//            }
-//            if(player1.position== player2.position+dcnumber)
-//            {
-//                //overlap
-//                overlap=1;
-//                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
-//
-//                imageview2.setImage(new Image(diceFile.toURI().toString()));
-//                imageview3.setOpacity(0);
-//
-//            }
-//        }
-//        currentPlayer.move(dcnumber);
+        dcnumber=1;
+        System.out.println("p1"+player1.getPosition());
+        System.out.println("p2"+player2.getPosition());
 
         if(turn == 1){
+            if(player1.overlap==1)
+            {
+                player1.overlap=0;
+
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\piece2.png");
+
+                player1.getPiece().setImage(new Image(diceFile.toURI().toString()));
+                player2.getPiece().setOpacity(1);
+            }
             currentPlayer = player1;
+            if(player2.getPosition()== player1.getPosition()+dcnumber)
+            {
+                player1.overlap=1;
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
+                System.out.println("ovelap");
+                player2.getPiece().setImage(new Image(diceFile.toURI().toString()));
+                player1.getPiece().setOpacity(0);
+
+            }
         }
         else{
             currentPlayer = player2;
+            if(player1.overlap==1)
+            {
+                player1.overlap=0;
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\piece1.png");
+
+                player2.getPiece().setImage(new Image(diceFile.toURI().toString()));
+                player1.getPiece().setOpacity(1);
+
+            }
+            if(player1.position== player2.position+dcnumber)
+            {
+                //overlap
+                player1.overlap=1;
+                System.out.println("ovelap");
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
+
+                player1.getPiece().setImage(new Image(diceFile.toURI().toString()));
+                player2.getPiece().setOpacity(0);
+
+            }
         }
         currentPlayer.move(dcnumber);
 
