@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="875.0" prefWidth="532.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ap.ap_project.HelloController">
     <children>
-        <Label fx:id="welcomeText" layoutX="286.0" layoutY="163.0" />
         <ImageView fitHeight="175.0" fitWidth="532.0" layoutY="175.0" pickOnBounds="true">
             <image>
                 <Image url="@background.png" />

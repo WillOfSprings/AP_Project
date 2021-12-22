@@ -1,39 +1,20 @@
 package ap.ap_project;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.animation.PathTransition;
-import javafx.animation.PathTransition.OrientationType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
-//import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class EndController implements Initializable {
@@ -53,15 +34,17 @@ public class EndController implements Initializable {
 
     private ImageView win, lose;
 
+
+    // Retrieve winner's info and show it on the screen.
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         if (WinInfo.getWinner() == 1){
-            win = p1end;
-            lose = p2end;
+            this.win = p1end;
+            this.lose = p2end;
         } else if (WinInfo.getWinner() == 2){
-            win = p2end;
-            lose = p1end;
+            this.win = p2end;
+            this.lose = p1end;
         } else {
             System.out.println("Error in switching scenes.");
             System.exit(1);
@@ -73,10 +56,17 @@ public class EndController implements Initializable {
         lose.setLayoutY(WinInfo.getLoserY());
         winPopUp.setImage(new Image(WinInfo.getWinFile().toURI().toString()));
 
+        System.out.println("------------------------------------------------------");
+        System.out.println("Press menu to exit. Replay to replay the game.");
+        System.out.println("------------------------------------------------------");
+
 
     }
 
     public void exitCall(){
+        System.out.println("------------------------------------------------------");
+        System.out.println("Exiting...");
+        System.out.println("------------------------------------------------------");
         System.exit(0);
     }
 
@@ -96,6 +86,8 @@ public class EndController implements Initializable {
 
 
 }
+
+/* Storage class for winner info */
 
 class WinInfo {
 

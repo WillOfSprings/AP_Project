@@ -1,21 +1,21 @@
 package ap.ap_project;
-import java.util.*;
-import javafx.scene.image.ImageView;
 
+import javafx.scene.image.ImageView;
 import java.util.HashMap;
-import java.util.Map;
 
 // 100 at 33x66
 // x distance = 45.8
 // y distance = 65.3
 // 1 at 33x653.7
 
+// Coords for snakes and ladders, present in hashmap
 class coords{
-    double x;
-    double y;
-    int multiplier;
-    int position;
-    coords(double x, double y, int multiplier, int position){
+    private final double x;
+    private final double y;
+    private final int multiplier;
+    private final int position;
+
+    public coords(double x, double y, int multiplier, int position){
         this.x = x;
         this.y = y;
         this.multiplier = multiplier;
@@ -40,16 +40,22 @@ class coords{
 }
 
 
+
+// Player class, X and Ydistance = distance between 2 tiles, piece image, position, overlap flag and coords
 public class tempPlayer {
-    double Xdistance = 45.8f;
-    double Ydistance = 65.3f;
-    int overlap=0;
-    static HashMap<Integer, coords> snakes;
-    static HashMap<Integer, coords> ladders;
-    ImageView piece;
-    int position;
-    double lX;
-    double lY;
+
+    private double Xdistance = 45.8f;
+    private final double Ydistance = 65.3f;
+
+    private final static HashMap<Integer, coords> snakes;
+    private final static HashMap<Integer, coords> ladders;
+
+    private final String name;
+    private final ImageView piece;
+    private int position;
+    private int overlap;
+    private double lX;
+    private double lY;
 
     static {
         snakes = new HashMap<Integer,coords>();
@@ -69,11 +75,21 @@ public class tempPlayer {
     }
 
 
-    public tempPlayer(ImageView piece, int position){
+    public tempPlayer(ImageView piece, int position, String name){
+        this.name = name;
         this.piece = piece;
         this.position = position;
-        lX = piece.getLayoutX();
-        lY = piece.getLayoutY();
+        this.lX = piece.getLayoutX();
+        this.lY = piece.getLayoutY();
+        this.overlap = 0;
+    }
+
+    public void setOverlap(int overlap){
+        this.overlap = overlap;
+    }
+
+    public int getOverlap(){
+        return this.overlap;
     }
 
     public ImageView getPiece(){
@@ -84,9 +100,30 @@ public class tempPlayer {
         return position;
     }
 
-    public void getCoords(){
-        System.out.println("X: " + this.lX + " Y: " + this.lY);
+    public void setPosition(int position){
+        this.position = position;
     }
+
+    public double getXdistance(){
+        return Xdistance;
+    }
+
+    public double getYdistance() {
+        return Ydistance;
+    }
+
+    public void setXdistance(double Xdistance){
+        this.Xdistance = Xdistance;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    //To print coords
+//    public void getCoords(){
+//        System.out.println("X: " + this.lX + " Y: " + this.lY);
+//    }
 
     public double getX(){
         return lX;
@@ -102,38 +139,46 @@ public class tempPlayer {
         piece.setLayoutY(lY);
     }
 
+
+    // Move pieces when called.
     public void move(double dc) {
 
-        //System.out.print("in move");
+        //Logic:
+        // if pos == 0; wait for dice == 1;
+        // pos >0, new pos = pos + dice
+        // if new pos > 100, don't move
+        // if new pos <= nearest 10, translate x
+        // else, translate to nearest 10, translate 1 y, translate to new pos - nearest 10
+        // After move, check if pos == 100, if yes, pop up win screen
 
-        int nearestTen = this.position + (10 - (this.position % 10));
 
-        if(this.position%10==0)
+        // Find nearest 10 to account for jump, move from 0 only if dice == 1, else move tiles horizontally till nearest 10.
+        int nearestTen = this.getPosition() + (10 - (this.getPosition() % 10));
+
+        if(this.getPosition()%10==0)
         {
-            nearestTen=this.position;
+            nearestTen=this.getPosition();
         }
 
-        if (position == 0) {
-            System.out.print("in move");
+        if (this.getPosition() == 0) {
             if (dc == 1) {
-                System.out.println("got1");
-                this.position = 1;
-                System.out.println("new position" + this.position);
+                System.out.println("\n" + this.getName() + " started moving.\n");
+                this.setPosition(1);
                 this.setCoords(42.9, 665.35);
             }
             return;
         }
 
-        else if (this.position + dc > 100) {
-            System.out.println("can't move");
+        else if (this.getPosition() + dc > 100) {
+            System.out.println("\nNot enough places to move for " + this.getName() + "\n");
             return;
         }
 
         else {
 
-            if ((position)%10 == 0) {
+            if ((this.getPosition())%10 == 0) {
                 this.setCoords(lX, lY - 65.3);
-                Xdistance *= -1;
+                this.setXdistance(this.getXdistance()*-1);
                 this.setCoords((lX + ((dc-1) * Xdistance)), lY);
 
             }
@@ -143,6 +188,11 @@ public class tempPlayer {
 
             } else {
                 this.setCoords((lX + (nearestTen - this.position) * Xdistance), lY);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 this.setCoords(lX, lY - 65.3);
                 Xdistance *= -1;
                 this.setCoords(lX + (dc - 1 - nearestTen + this.position) * Xdistance, lY);
@@ -150,10 +200,12 @@ public class tempPlayer {
         }
 
         try {
-            Thread.sleep(200);
+            Thread.sleep(300);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        // Check if snake or ladder
         position += dc;
         if (snakes.containsKey(position)) {
             this.setCoords(snakes.get(position).getX(), snakes.get(position).getY());
@@ -166,22 +218,13 @@ public class tempPlayer {
             Xdistance *= ladders.get(position).getMultiplier();
             position = ladders.get(position).getPosition();
         }
-        if (position == 100) {
-            System.out.println(" Winner ");
-        }
+
+        // Deprecated
+//        if (position == 100) {
+//            System.out.println(" Winner ");
+//        }
         System.out.println(position);
 
     }
-
-
-    //TODO:
-    // if pos == 0; wait for dice == 1;
-    // pos >0, new pos = pos + dice
-    // if new pos > 100, don't move
-    // if new pos <= nearest 10, translate x
-    // else, translate to nearest 10, translate 1 y, translate to new pos - nearest 10
-    // After move, check if pos == 100, if yes, pop up win screen
-
-
 
 }
