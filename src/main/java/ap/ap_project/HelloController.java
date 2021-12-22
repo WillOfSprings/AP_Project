@@ -327,6 +327,8 @@ class moveThread extends Thread{
     int dcnumber;
     int turn;
     tempPlayer currentPlayer;
+    ImageView imageview3;
+    ImageView imageview2;
 
     public moveThread(tempPlayer player1, tempPlayer player2, int dcnumber, int turn){
         this.player1 = player1;
@@ -337,12 +339,43 @@ class moveThread extends Thread{
 
     @Override
     public void run(){
+        int overlap=0;
         if(turn == 1){
+            if(overlap==1)
+            {
+                overlap=0;
+                imageview2.setImage(new Image("piece2.png"));
+                imageview3.setOpacity(1);
+            }
             currentPlayer = player1;
+            if(player2.position== player1.position+dcnumber)
+            {
+                overlap=1;
+                imageview3.setImage(new Image("img.png"));
+                imageview2.setOpacity(0);
+
+            }
         }
         else{
             currentPlayer = player2;
+            if(overlap==1)
+            {
+                overlap=0;
+                imageview3.setImage(new Image("piece1.png"));
+                imageview2.setOpacity(1);
+
+            }
+            if(player1.position== player2.position+dcnumber)
+            {
+                //overlap
+                overlap=1;
+                //add image
+                imageview2.setImage(new Image("img.png"));
+                imageview3.setOpacity(0);
+
+            }
         }
         currentPlayer.move(dcnumber);
+
     }
 }

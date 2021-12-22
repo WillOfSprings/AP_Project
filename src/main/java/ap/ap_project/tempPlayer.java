@@ -87,7 +87,7 @@ public class tempPlayer {
         piece.setLayoutY(lY);
     }
 
-    public void move(int dc) {
+    public void move(double dc) {
 
         //System.out.print("in move");
 
