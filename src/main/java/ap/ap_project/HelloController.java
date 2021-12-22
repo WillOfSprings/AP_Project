@@ -23,6 +23,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
+//import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.Random;
@@ -33,9 +34,16 @@ public class HelloController implements Initializable {
     // 100 at 33x66
     // x distance = 45.8
     // y distance = 65.3
-    // 0 at 33x653.7
+    // 1 at 33x653.7
 
+    // ignore
     public int a = 1;
+    public tempPlayer player1;
+    public tempPlayer player2;
+
+
+    //Player turn
+    public int turn = 1;
 
     // For roll()
     int dc = 0;
@@ -99,15 +107,16 @@ public class HelloController implements Initializable {
 //        path.getElements().add(new CubicCurveTo (40f, 30f, 50f, 34f, 60f, 50f));
 //        path.getElements().add(new CubicCurveTo (80f, 70f, 90f, 84f, 100f, 100f));
         MoveTo moveTo = new MoveTo();
-        moveTo.setX(imageview.getTranslateX());
-        moveTo.setY(imageview.getTranslateY());
+        moveTo.setX(imageview.getLayoutX());
+        moveTo.setY(imageview.getLayoutY());
+        moveTo.isAbsolute();
 
-        double ogx = imageview.getTranslateX();
-        double ogy = imageview.getTranslateY();
+        double ogx = imageview.getLayoutX();
+        double ogy = imageview.getLayoutY();
 
-        double finxlx = imageview.getTranslateX() + 200f;
+        double finxlx = imageview.getLayoutX() + 200f;
         double inc = 50f;
-        double finxly = imageview.getTranslateY();
+        double finxly = imageview.getLayoutY();
         path.getElements().add(moveTo);
 
 
@@ -123,7 +132,7 @@ public class HelloController implements Initializable {
 
 
 //        path.getElements().add(new CubicCurveTo(130f, 10f, -75f, -100f, 120f, 150f));
-        welcomeText.setText(String.format("%f and %f.", imageview.getTranslateX(), imageview.getTranslateY()));
+        welcomeText.setText(String.format("%f and %f.", imageview.getLayoutX(), imageview.getLayoutY()));
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.millis(2000));
         pathTransition.setNode(imageview);
@@ -133,9 +142,9 @@ public class HelloController implements Initializable {
         pathTransition.setAutoReverse(false);
         pathTransition.play();
 
-        imageview.setTranslateX(finxlx);
-        imageview.setTranslateY(finxly);
-        welcomeText.setText(String.format("%f and %f.", imageview.getTranslateX(), imageview.getTranslateY()));
+        imageview.setLayoutX(finxlx);
+        imageview.setLayoutY(finxly);
+        welcomeText.setText(String.format("%f and %f.", imageview.getLayoutX(), imageview.getLayoutY()));
     }
 
 
@@ -167,6 +176,11 @@ public class HelloController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
+        player1 = new tempPlayer(imageview2, 0);
+        player2 = new tempPlayer(imageview3, 0);
+        player1.getCoords();
+        player2.getCoords();
+
     }
 
 
@@ -178,7 +192,6 @@ public class HelloController implements Initializable {
         mediaPlayer.play();
     }
 
-
     // Called when dice is pressed, dice disabled for the moment.
     public void roll(MouseEvent mouseEvent) {
         diceView.setDisable(true);
@@ -187,6 +200,7 @@ public class HelloController implements Initializable {
         // Thread: hide arrow, play dice animation and audio, set dice face correspondingly, enable dice again.
         Thread thread = new Thread() {
             public void run(){
+
                 System.out.println("aaa");
                 try{
                     arrow.setVisible(false);
@@ -195,26 +209,44 @@ public class HelloController implements Initializable {
                     for (int i = 0; i < 15; i++) {
                         File diceFile = new File("src\\main\\resources\\ap\\ap_project\\diceRoll" + (i+1)+ ".png");
                         //TODO: Remove debug comments.
-                        System.out.println(diceFile.getAbsolutePath());
+//                        System.out.println(diceFile.getAbsolutePath());
                         diceView.setImage(new Image(diceFile.toURI().toString()));
                         Thread.sleep(100);
                     }
 
                     File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + dc + ".png");
-                    System.out.println(diceFile.getAbsolutePath());
+//                    System.out.println(diceFile.getAbsolutePath());
                     diceView.setImage(new Image(diceFile.toURI().toString()));
-                    arrow.setVisible(true);
+
+
+                    //TODO:
+                    // if turn == 1, call player1.move
+                    // if turn == 2, call player2.move
+
+
+                    moveThread mt = new moveThread(player1, player2, dc, turn);
+                    if (turn == 1) {
+                        turn = 2;
+                    } else {
+                        turn = 1;
+                    }
+                    mt.start();
 
                     //TODO: Needs to be looked at.
+                    //after every turn checks if p1 opacity is 0 then changes to 0.5 and p2 to 0
+                    //else vice versa
                     if(p1Inactive.getOpacity()==0)
                     {p1Inactive.setOpacity(0.5);p2Inactive.setOpacity(0);}
                     else{p1Inactive.setOpacity(0);p2Inactive.setOpacity(0.5);}
 
 
                     Thread.sleep(100);
-
+                    arrow.setVisible(true);
                     diceView.setDisable(false);
-//                    welcomeText.setText("" + a);
+
+
+
+
                     //TODO: Remove debug comments.
                     System.out.println(dc);
                 } catch (Exception e) {
@@ -227,6 +259,33 @@ public class HelloController implements Initializable {
         // To reset, dk where to place
 //        p1Inactive.setOpacity(0.0);
 //        p2Inactive.setOpacity(0.0);
+    }
+
+
+    public class moveThread extends Thread{
+        tempPlayer player1;
+        tempPlayer player2;
+        int dcnumber;
+        int turn;
+        tempPlayer currentPlayer;
+
+        public moveThread(tempPlayer player1, tempPlayer player2, int dcnumber, int turn){
+            this.player1 = player1;
+            this.player2 = player2;
+            this.dcnumber = dcnumber;
+            this.turn = turn;
+        }
+
+        @Override
+        public void run(){
+            if(turn == 1){
+                currentPlayer = player1;
+            }
+            else{
+                currentPlayer = player2;
+            }
+            currentPlayer.move(dcnumber);
+        }
     }
 
 }
