@@ -223,7 +223,6 @@ public class tempPlayer {
 //        if (position == 100) {
 //            System.out.println(" Winner ");
 //        }
-        System.out.println(position);
 
     }
 
