@@ -74,25 +74,7 @@ public class HelloController implements Initializable {
 
 
     // For the arrow, infinite movement for the arrow over the course of the game, direction depends on bounds.
-    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(25), new EventHandler<ActionEvent>() {
-
-        double deltaY = 2;
-
-        @Override
-        public void handle(ActionEvent actionEvent) {
-
-            arrow.setLayoutY(arrow.getLayoutY() + deltaY);
-
-            //Bounds bounds = scene.getBoundsInLocal();
-            boolean bottomBorder = arrow.getLayoutY() >= (727);
-            boolean topBorder = arrow.getLayoutY() <= (707);
-
-
-            if (bottomBorder || topBorder) {
-                deltaY *= -1;
-            }
-        }
-    }));
+    private Timeline timeline;
 
 
     /* Logic:
@@ -102,6 +84,26 @@ public class HelloController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        timeline = new Timeline(new KeyFrame(Duration.millis(25), new EventHandler<ActionEvent>() {
+
+            double deltaY = 2;
+
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                arrow.setLayoutY(arrow.getLayoutY() + deltaY);
+
+                //Bounds bounds = scene.getBoundsInLocal();
+                boolean bottomBorder = arrow.getLayoutY() >= (727);
+                boolean topBorder = arrow.getLayoutY() <= (707);
+
+
+                if (bottomBorder || topBorder) {
+                    deltaY *= -1;
+                }
+            }
+        }));
 
         p2Inactive.setOpacity(0.5);
 
