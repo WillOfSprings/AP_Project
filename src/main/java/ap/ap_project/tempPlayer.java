@@ -43,7 +43,7 @@ class coords{
 public class tempPlayer {
     double Xdistance = 45.8f;
     double Ydistance = 65.3f;
-
+    int overlap=0;
     static HashMap<Integer, coords> snakes;
     static HashMap<Integer, coords> ladders;
     ImageView piece;
