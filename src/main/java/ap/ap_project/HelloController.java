@@ -145,6 +145,7 @@ public class HelloController implements Initializable {
                     File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + dc + ".png");
                     diceView.setImage(new Image(diceFile.toURI().toString()));
                     System.out.println("\nDice roll: " + dc);
+                    System.out.println("Player " + turn + "'s turn.");
 
                     // if turn == 1, call player1.move after checking for overlap, switch inactivity of p2 banner
                     // if turn == 2, call player2.move, same way
