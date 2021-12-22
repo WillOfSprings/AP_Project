@@ -3,31 +3,29 @@ package ap.ap_project;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.animation.PathTransition;
-import javafx.animation.PathTransition.OrientationType;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
-
-//import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Random;
 import java.util.ResourceBundle;
+
+
 
 public class HelloController implements Initializable {
 
@@ -36,22 +34,24 @@ public class HelloController implements Initializable {
     // y distance = 65.3
     // 1 at 33x653.7
 
-    // ignore
-    public int a = 1;
-    public tempPlayer player1;
-    public tempPlayer player2;
-
-
+    // Custom variables
+    private tempPlayer player1;
+    private tempPlayer player2;
     //Player turn
-    public int turn = 1;
-
+    private int turn = 1;
     // For roll()
-    int dc = 0;
-    Random random = new Random();
-    public ImageView gameBoard;
-    public ImageView piece1;
-    public ImageView piece2;
+    private int dc = 0;
 
+    @FXML
+    private ImageView backButton;
+    @FXML
+    private ImageView backOverlay;
+    @FXML
+    private ImageView backPopUp;
+    @FXML
+    private ImageView popBack;
+    @FXML
+    private ImageView popOkay;
     @FXML
     private ImageView p1Inactive;
     @FXML
@@ -60,94 +60,20 @@ public class HelloController implements Initializable {
     private ImageView p1;
     @FXML
     private ImageView p2;
-
     @FXML
     private ImageView diceView;
-    @FXML
-    private Pane gamePane;
-    @FXML
-    private Button tempB;
-
-    @FXML
-    private ImageView imageview;
     @FXML
     private ImageView imageview2;
     @FXML
     private ImageView imageview3;
-
-    @FXML
-    private Button helB;
     @FXML
     private ImageView arrow;
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    private Cylinder abc;
-
-    //TODO: IDK what this is? -Pratyush
-    @FXML
-    protected void handleButtonAction() {
-        gamePane.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-    }
-
-    //TODO: Wonky af, needs rethinking -Pratyush
-    @FXML
-    protected void onHelloButtonClick(){
-
-        if (a%3 == 1) {
-            imageview = imageview3;
-        } else {
-            imageview = imageview2;
-        }
-        a++;
-        welcomeText.setText("Welcome to JavaFX Application!");
-        Path path = new Path();
-//        path.getElements().add(new MoveTo (0f, 0f));
-//        path.getElements().add(new CubicCurveTo (40f, 30f, 50f, 34f, 60f, 50f));
-//        path.getElements().add(new CubicCurveTo (80f, 70f, 90f, 84f, 100f, 100f));
-        MoveTo moveTo = new MoveTo();
-        moveTo.setX(imageview.getLayoutX());
-        moveTo.setY(imageview.getLayoutY());
-        moveTo.isAbsolute();
-
-        double ogx = imageview.getLayoutX();
-        double ogy = imageview.getLayoutY();
-
-        double finxlx = imageview.getLayoutX() + 200f;
-        double inc = 50f;
-        double finxly = imageview.getLayoutY();
-        path.getElements().add(moveTo);
-
-
-        while(ogx < finxlx) {
-            path.getElements().add(new QuadCurveTo(ogx + (inc/2), 0.0f, ogx + inc, 50.0f));
-            ogx += inc;
-//            path.getElements().add(new QuadCurveTo(75.0f, 100.0f, 100.0f, 50.0f));
-//            path.getElements().add(new QuadCurveTo(125.0f, 0.0f, 150.0f, 50.0f));
-        }
-
-        path.getElements().add(new MoveTo(finxlx, finxly));
 
 
 
-//        path.getElements().add(new CubicCurveTo(130f, 10f, -75f, -100f, 120f, 150f));
-        welcomeText.setText(String.format("%f and %f.", imageview.getLayoutX(), imageview.getLayoutY()));
-        PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(2000));
-        pathTransition.setNode(imageview);
-        pathTransition.setPath(path);
-//        pathTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition.setCycleCount(1);
-        pathTransition.setAutoReverse(false);
-        pathTransition.play();
-
-        imageview.setLayoutX(finxlx);
-        imageview.setLayoutY(finxly);
-        welcomeText.setText(String.format("%f and %f.", imageview.getLayoutX(), imageview.getLayoutY()));
-    }
 
 
+    // For the arrow, infinite movement for the arrow over the course of the game, direction depends on bounds.
     Timeline timeline = new Timeline(new KeyFrame(Duration.millis(25), new EventHandler<ActionEvent>() {
 
         double deltaY = 2;
@@ -169,17 +95,21 @@ public class HelloController implements Initializable {
     }));
 
 
+    /* Logic:
+    *  For init, set p2 banner as inactive
+    * play arrow animation indefinitely
+    * define 2 players: contains imageview of piece, position, layout coordinates and overlap flag
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         p2Inactive.setOpacity(0.5);
 
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
-        player1 = new tempPlayer(imageview2, 0);
-        player2 = new tempPlayer(imageview3, 0);
-        player1.getCoords();
-        player2.getCoords();
+        player1 = new tempPlayer(imageview2, 0, "Player1");
+        player2 = new tempPlayer(imageview3, 0, "Player2");
 
     }
 
@@ -194,61 +124,54 @@ public class HelloController implements Initializable {
 
     // Called when dice is pressed, dice disabled for the moment.
     public void roll(MouseEvent mouseEvent) {
+
         diceView.setDisable(true);
 
 
         // Thread: hide arrow, play dice animation and audio, set dice face correspondingly, enable dice again.
         Thread thread = new Thread() {
             public void run(){
-
-                System.out.println("aaa");
+                Random random = new Random();
                 try{
                     arrow.setVisible(false);
                     dc = (random.nextInt(6)+1);
                     playDiceAudio();
                     for (int i = 0; i < 15; i++) {
                         File diceFile = new File("src\\main\\resources\\ap\\ap_project\\diceRoll" + (i+1)+ ".png");
-                        //TODO: Remove debug comments.
-//                        System.out.println(diceFile.getAbsolutePath());
                         diceView.setImage(new Image(diceFile.toURI().toString()));
                         Thread.sleep(100);
                     }
 
                     File diceFile = new File("src\\main\\resources\\ap\\ap_project\\dice" + dc + ".png");
-//                    System.out.println(diceFile.getAbsolutePath());
                     diceView.setImage(new Image(diceFile.toURI().toString()));
+                    System.out.println("\nDice roll: " + dc);
 
-
-                    //TODO:
-                    // if turn == 1, call player1.move
-                    // if turn == 2, call player2.move
+                    // if turn == 1, call player1.move after checking for overlap, switch inactivity of p2 banner
+                    // if turn == 2, call player2.move, same way
 
 
                     moveThread mt = new moveThread(player1, player2, dc, turn);
+                    mt.start();
                     if (turn == 1) {
                         turn = 2;
+                        p1Inactive.setOpacity(0.5);
+                        p2Inactive.setOpacity(0);
                     } else {
                         turn = 1;
+                        p1Inactive.setOpacity(0);
+                        p2Inactive.setOpacity(0.5);
                     }
-                    mt.start();
 
-                    //TODO: Needs to be looked at.
-                    //after every turn checks if p1 opacity is 0 then changes to 0.5 and p2 to 0
-                    //else vice versa
-                    if(p1Inactive.getOpacity()==0)
-                    {p1Inactive.setOpacity(0.5);p2Inactive.setOpacity(0);}
-                    else{p1Inactive.setOpacity(0);p2Inactive.setOpacity(0.5);}
+                    Thread.sleep(500);
 
+                    // Check for game finish
+                    finishThread ft = new finishThread(player1, player2);
+                    Platform.runLater(ft);
 
-                    Thread.sleep(100);
+                    // If not, continue
                     arrow.setVisible(true);
                     diceView.setDisable(false);
 
-
-
-
-                    //TODO: Remove debug comments.
-                    System.out.println(dc);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -256,35 +179,203 @@ public class HelloController implements Initializable {
         };
 
         thread.start();
-        // To reset, dk where to place
-//        p1Inactive.setOpacity(0.0);
-//        p2Inactive.setOpacity(0.0);
+    }
+
+    // Bring up menu when backButton is pressed.
+    public void changeScene(MouseEvent mouseEvent){
+
+        backOverlay.setMouseTransparent(false);
+        backOverlay.setOpacity(0.5);
+        backPopUp.setOpacity(1);
+        backPopUp.setMouseTransparent(false);
+        popBack.setMouseTransparent(false);
+        popOkay.setMouseTransparent(false);
+
+    }
+
+    // Move back to playing screen, called when popBack is pressed.
+    public void popBackButton(MouseEvent mouseEvent) {
+        backOverlay.setMouseTransparent(true);
+        backOverlay.setOpacity(0);
+        backPopUp.setOpacity(0);
+        backPopUp.setMouseTransparent(true);
+        popBack.setMouseTransparent(true);
+        popOkay.setMouseTransparent(true);
     }
 
 
-    public class moveThread extends Thread{
-        tempPlayer player1;
-        tempPlayer player2;
-        int dcnumber;
-        int turn;
-        tempPlayer currentPlayer;
+    // Exit mid game, called when popOkay is pressed.
+    public void popOkayButton(MouseEvent mouseEvent) {
+        System.out.println("------------------------------------------------------");
+        System.out.println("Exiting...");
+        System.out.println("------------------------------------------------------");
+        System.exit(0);
+    }
 
-        public moveThread(tempPlayer player1, tempPlayer player2, int dcnumber, int turn){
-            this.player1 = player1;
-            this.player2 = player2;
-            this.dcnumber = dcnumber;
-            this.turn = turn;
+
+
+}
+
+// Thread to move player based on die number.
+class moveThread extends Thread{
+
+    private final tempPlayer player1;
+    private final tempPlayer player2;
+    private final int dcnumber;
+    private final int turn;
+
+
+    public moveThread(tempPlayer player1, tempPlayer player2, int dcnumber, int turn){
+        this.player1 = player1;
+        this.player2 = player2;
+        this.dcnumber = dcnumber;
+        this.turn = turn;
+    }
+
+
+    /* Alternate logic, deprecated
+
+     * tempPlayer.overlap = 0;
+     * if player.overlap == 0
+     * currentPlayer.move(dcnumber, player2, imageview overlap);
+     * curretplayer pos + dice == player2 pos
+     * currentPlayer.overlap = 1; player2.overlap = 1;
+     * players.opacity0
+     * overlap.seropacity 1
+     * overlap.set x, sety lxly
+
+
+     * else:
+     * overlap.seropacity 0
+     * players.opacity0
+     * overlap = 0;
+
+     */
+
+
+    @Override
+    public void run(){
+
+        System.out.println("\nPlayer1 current position: "+player1.getPosition());
+        System.out.println("Player2 current position: "+player2.getPosition()+"\n");
+
+
+        /* Logic:
+         * if turn == 1, if overlapped, un-overlap, adjust images, move
+         * either way, after move, see if position == player2, if so, overlap=1, adjust images
+         * sam if turn == 2, for player 2
+         */
+
+        if( this.turn == 1 ){
+
+            if ( player1.getOverlap()==1 )
+            {
+                player1.setOverlap(0);
+                player2.setOverlap(0);
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\piece2.png");
+                player1.getPiece().setImage(new Image(diceFile.toURI().toString()));
+                player2.getPiece().setOpacity(1);
+            }
+
+            player1.move(dcnumber);
+
+            if ( ( player2.getPosition() == player1.getPosition() ) && player1.getPosition()!=0 )
+            {
+                player1.setOverlap(1);
+                player2.setOverlap(1);
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
+                System.out.println("Player1 and 2 overlap at position: " + player1.getPosition());
+                player2.getPiece().setImage(new Image(diceFile.toURI().toString()));
+                player1.getPiece().setOpacity(0);
+
+            }
         }
 
-        @Override
-        public void run(){
-            if(turn == 1){
-                currentPlayer = player1;
+        else{
+
+            if ( player2.getOverlap() == 1 )
+            {
+                player2.setOverlap(0);
+                player1.setOverlap(0);
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\piece1.png");
+                player2.getPiece().setImage(new Image(diceFile.toURI().toString()));
+                player1.getPiece().setOpacity(1);
+
             }
-            else{
-                currentPlayer = player2;
+
+            player2.move(dcnumber);
+
+            if ( (player2.getPosition()== player1.getPosition() ) && player2.getPosition()!=0 )
+            {
+                player1.setOverlap(1);
+                player2.setOverlap(1);
+                System.out.println("Player2 and 1 overlap at position: " + player2.getPosition());
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
+                player1.getPiece().setImage(new Image(diceFile.toURI().toString()));
+                player2.getPiece().setOpacity(0);
+
             }
-            currentPlayer.move(dcnumber);
+        }
+
+        System.out.println("\nPlayer1 current position: "+player1.getPosition());
+        System.out.println("Player2 current position: "+player2.getPosition()+"\n");
+
+
+    }
+}
+
+
+class finishThread implements Runnable {
+
+    /* Logic: Thread to finish game, runs after every dice roll.
+     * if player1 or player2 is at 100, a static class' variables are set for next scene to retrieve
+     * If no one at 100, exit thread
+     * else, load finishing sequence to the scene, from there, exit or restart.
+     */
+
+    tempPlayer player1;
+    tempPlayer player2;
+
+    public finishThread(tempPlayer player1, tempPlayer player2){
+        this.player1 = player1;
+        this.player2 = player2;
+    }
+
+
+
+    @Override
+    public void run(){
+        if(player1.getPosition() == 100){
+            System.out.println("\n--------Player 1 wins!--------\n");
+            WinInfo.setWinner(1);
+            WinInfo.setWinnerX(player1.getX());
+            WinInfo.setWinnerY(player1.getY());
+            WinInfo.setLoserX(player2.getX());
+            WinInfo.setLoserY(player2.getY());
+            WinInfo.setWinFile(new File("src\\main\\resources\\ap\\ap_project\\p1win.png"));
+        }
+        else if (player2.getPosition() == 100){
+            System.out.println("\n--------Player 2 wins!--------\n");
+            WinInfo.setWinner(2);
+            WinInfo.setWinnerX(player2.getX());
+            WinInfo.setWinnerY(player2.getY());
+            WinInfo.setLoserX(player1.getX());
+            WinInfo.setLoserY(player1.getY());
+            WinInfo.setWinFile(new File("src\\main\\resources\\ap\\ap_project\\p2win.png"));
+        }
+
+        if (player1.getPosition() == 100 || player2.getPosition() == 100){
+
+            try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+            Stage stage = (Stage)player1.getPiece().getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         }
     }
 
