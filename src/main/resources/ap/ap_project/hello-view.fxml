@@ -57,7 +57,7 @@
             <Image url="@player2.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="diceEnd" fitHeight="73.0" fitWidth="78.0" layoutX="229.0" layoutY="752.0" preserveRatio="true">
+      <ImageView fitHeight="73.0" fitWidth="78.0" layoutX="229.0" layoutY="752.0" preserveRatio="true">
          <image>
             <Image url="@dice1.png" />
          </image>
@@ -77,7 +77,7 @@
             <Image url="@black.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="388.0" fitWidth="402.0" layoutX="61.0" layoutY="244.0" preserveRatio="true">
+      <ImageView fx:id="winPopUp" fitHeight="388.0" fitWidth="402.0" layoutX="61.0" layoutY="244.0" preserveRatio="true">
          <image>
             <Image url="@p1win.png" />
          </image>

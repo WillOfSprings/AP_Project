@@ -76,8 +76,23 @@ public class tempPlayer {
         lY = piece.getLayoutY();
     }
 
+    public ImageView getPiece(){
+        return piece;
+    }
+
+    public int getPosition(){
+        return position;
+    }
+
     public void getCoords(){
         System.out.println("X: " + this.lX + " Y: " + this.lY);
+    }
+
+    public double getX(){
+        return lX;
+    }
+    public double getY(){
+        return lY;
     }
 
     public void setCoords(double lX, double lY){
@@ -92,6 +107,7 @@ public class tempPlayer {
         //System.out.print("in move");
 
         int nearestTen = this.position + (10 - (this.position % 10));
+
         if(this.position%10==0)
         {
             nearestTen=this.position;

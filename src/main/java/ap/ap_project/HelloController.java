@@ -261,7 +261,10 @@ public class HelloController implements Initializable {
                     else{p1Inactive.setOpacity(0);p2Inactive.setOpacity(0.5);}
 
 
-                    Thread.sleep(100);
+                    Thread.sleep(300);
+
+                    finishThread ft = new finishThread(player1, player2);
+                    ft.start();
                     arrow.setVisible(true);
                     diceView.setDisable(false);
 
@@ -286,7 +289,7 @@ public class HelloController implements Initializable {
 
 //        try {
 //            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
-//            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+//            stage = (Stage)imageview2.getScene().getWindow();
 //            scene = new Scene(root);
 //            stage.setScene(scene);
 //            stage.show();
@@ -378,4 +381,78 @@ class moveThread extends Thread{
         currentPlayer.move(dcnumber);
 
     }
+}
+
+
+class finishThread extends Thread {
+
+    private static double winnerX, winnerY, loserX, loserY;
+    private static int winner;
+    private static File winFile;
+    tempPlayer player1;
+    tempPlayer player2;
+
+    public finishThread(tempPlayer player1, tempPlayer player2){
+        this.player1 = player1;
+        this.player2 = player2;
+    }
+
+    public static int getWinner(){
+        return finishThread.winner;
+    }
+
+    public static double getWinnerX(){
+        return finishThread.winnerX;
+    }
+
+    public static double getWinnerY(){
+        return finishThread.winnerY;
+    }
+
+    public static double getLoserX(){
+        return finishThread.loserX;
+    }
+
+    public static double getLoserY(){
+        return finishThread.loserY;
+    }
+
+    public static File getWinFile(){
+        return finishThread.winFile;
+    }
+
+    @Override
+    public void run(){
+        if(player1.getPosition() == 100){
+            winner = 1;
+            winnerX = player1.getX();
+            winnerY = player1.getY();
+            loserX = player2.getX();
+            loserY = player2.getY();
+            winFile = new File("src\\main\\resources\\ap\\ap_project\\p1win.png");
+        }
+        else if (player2.getPosition() == 100){
+            winner = 2;
+            winnerX = player2.getX();
+            winnerY = player2.getY();
+            loserX = player1.getX();
+            loserY = player1.getY();
+            winFile = new File("src\\main\\resources\\ap\\ap_project\\p2win.png");
+        }
+
+        if (player1.getPosition() == 100 || player2.getPosition() == 100){
+
+            try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+            Stage stage = (Stage)player1.getPiece().getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        }
+    }
+
 }

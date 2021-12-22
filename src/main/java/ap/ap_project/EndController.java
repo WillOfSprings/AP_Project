@@ -39,20 +39,40 @@ import java.util.ResourceBundle;
 public class EndController implements Initializable {
 
 
-
+    @FXML
+    private ImageView winPopUp;
     @FXML
     private Button exitButton;
     @FXML
     private Button replayButton;
     @FXML
-    private ImageView diceEnd;
-    @FXML
     private ImageView p2end;
     @FXML
     private ImageView p1end;
 
+
+    private ImageView win, lose;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if (finishThread.getWinner() == 1){
+            win = p1end;
+            lose = p2end;
+        } else if (finishThread.getWinner() == 2){
+            win = p2end;
+            lose = p1end;
+        } else {
+            System.out.println("Error in switching scenes.");
+            System.exit(1);
+        }
+
+        win.setLayoutX(finishThread.getWinnerX());
+        win.setLayoutY(finishThread.getWinnerY());
+        lose.setLayoutX(finishThread.getLoserX());
+        lose.setLayoutY(finishThread.getLoserY());
+        winPopUp.setImage(new Image(finishThread.getWinFile().toURI().toString()));
+
 
     }
 

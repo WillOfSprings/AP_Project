@@ -88,7 +88,7 @@
             <Image url="@black.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="backPopUp" fitHeight="363.0" fitWidth="499.0" layoutX="17.0" layoutY="270.0" mouseTransparent="true" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backPopUp" fitHeight="363.0" fitWidth="499.0" layoutX="12.0" layoutY="270.0" mouseTransparent="true" opacity="0.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@backPopUp.png" />
          </image>
