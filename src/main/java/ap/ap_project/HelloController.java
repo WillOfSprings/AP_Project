@@ -312,6 +312,10 @@ public class HelloController implements Initializable {
         popOkay.setMouseTransparent(true);
     }
 
+    public void popOkayButton(MouseEvent mouseEvent) {
+        System.exit(0);
+    }
+
 
 
 }
