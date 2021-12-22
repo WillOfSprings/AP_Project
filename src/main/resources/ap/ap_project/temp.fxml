@@ -93,7 +93,7 @@
             <Image url="@backPopUp.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="popBack" fitHeight="73.0" fitWidth="81.0" layoutX="105.0" layoutY="484.0" mouseTransparent="true" opacity="0.0" pickOnBounds="true">
+      <ImageView fx:id="popBack" fitHeight="73.0" fitWidth="81.0" layoutX="105.0" layoutY="484.0" mouseTransparent="true" onMouseClicked="#popBackButton" opacity="0.0" pickOnBounds="true">
          <image>
             <Image url="@black.png" />
          </image>

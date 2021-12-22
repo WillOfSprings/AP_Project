@@ -303,6 +303,15 @@ public class HelloController implements Initializable {
 
     }
 
+    public void popBackButton(MouseEvent mouseEvent) {
+        backOverlay.setMouseTransparent(true);
+        backOverlay.setOpacity(0);
+        backPopUp.setOpacity(0);
+        backPopUp.setMouseTransparent(true);
+        popBack.setMouseTransparent(true);
+        popOkay.setMouseTransparent(true);
+    }
+
 
 
 }
