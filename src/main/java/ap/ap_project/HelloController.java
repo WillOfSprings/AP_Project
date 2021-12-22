@@ -348,14 +348,18 @@ class moveThread extends Thread{
             if(overlap==1)
             {
                 overlap=0;
-                imageview2.setImage(new Image("piece2.png"));
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\piece2.png");
+
+                imageview2.setImage(new Image(diceFile.toURI().toString()));
                 imageview3.setOpacity(1);
             }
             currentPlayer = player1;
             if(player2.position== player1.position+dcnumber)
             {
                 overlap=1;
-                imageview3.setImage(new Image("img.png"));
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
+
+                imageview3.setImage(new Image(diceFile.toURI().toString()));
                 imageview2.setOpacity(0);
 
             }
@@ -365,7 +369,9 @@ class moveThread extends Thread{
             if(overlap==1)
             {
                 overlap=0;
-                imageview3.setImage(new Image("piece1.png"));
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\piece1.png");
+
+                imageview3.setImage(new Image(diceFile.toURI().toString()));
                 imageview2.setOpacity(1);
 
             }
@@ -373,8 +379,9 @@ class moveThread extends Thread{
             {
                 //overlap
                 overlap=1;
-                //add image
-                imageview2.setImage(new Image("img.png"));
+                File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
+
+                imageview2.setImage(new Image(diceFile.toURI().toString()));
                 imageview3.setOpacity(0);
 
             }
