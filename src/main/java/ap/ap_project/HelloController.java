@@ -284,15 +284,22 @@ public class HelloController implements Initializable {
 
     public void changeScene(MouseEvent mouseEvent){
 
-        try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
-            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+//            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+//            scene = new Scene(root);
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        backOverlay.setMouseTransparent(false);
+        backOverlay.setOpacity(0.5);
+        backPopUp.setOpacity(1);
+        backPopUp.setMouseTransparent(false);
+        popBack.setMouseTransparent(false);
+        popOkay.setMouseTransparent(false);
 
     }
 
