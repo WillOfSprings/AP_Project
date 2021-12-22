@@ -358,7 +358,7 @@ class moveThread extends Thread{
     */
     @Override
     public void run(){
-        dcnumber=1;
+       // dcnumber=1;
         System.out.println("p1"+player1.getPosition());
         System.out.println("p2"+player2.getPosition());
 
