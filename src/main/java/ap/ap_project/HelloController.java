@@ -363,6 +363,7 @@ class moveThread extends Thread{
         System.out.println("p2"+player2.getPosition());
 
         if(turn == 1){
+
             if(player1.overlap==1)
             {
                 player1.overlap=0;
@@ -372,8 +373,9 @@ class moveThread extends Thread{
                 player1.getPiece().setImage(new Image(diceFile.toURI().toString()));
                 player2.getPiece().setOpacity(1);
             }
+            player1.move(dcnumber);
             currentPlayer = player1;
-            if(player2.getPosition()== player1.getPosition()+dcnumber)
+            if(player2.getPosition()== player1.getPosition())
             {
                 player1.overlap=1;
                 File diceFile = new File("src\\main\\resources\\ap\\ap_project\\overlap.png");
@@ -385,6 +387,7 @@ class moveThread extends Thread{
         }
         else{
             currentPlayer = player2;
+
             if(player1.overlap==1)
             {
                 player1.overlap=0;
@@ -394,7 +397,8 @@ class moveThread extends Thread{
                 player1.getPiece().setOpacity(1);
 
             }
-            if(player1.position== player2.position+dcnumber)
+            player2.move(dcnumber);
+            if(player1.getPosition()== player2.getPosition())
             {
                 //overlap
                 player1.overlap=1;
@@ -406,7 +410,7 @@ class moveThread extends Thread{
 
             }
         }
-        currentPlayer.move(dcnumber);
+
 
     }
 }
